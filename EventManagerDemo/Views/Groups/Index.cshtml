@@ -1,0 +1,36 @@
+﻿@using EventManagerDemo.Models
+@model List<Group>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/OfficeUIFabricLayout.cshtml";
+}
+<div class="ms-Grid">
+    <div class="ms-Grid-row">
+        <div class="ms-Grid-col">
+            <h2 className="ms-font-xxl">My groups</h2>
+            @foreach (var item in Model)
+            {
+                <div class="ms-Grid-col">@* ms-u-sm3 *@
+                    <a href="@item.ConversationsUrl">
+                        <div class="ms-Persona">
+                            <div class="ms-Persona-imageArea">
+                                <div class="ms-Persona-initials ms-Persona-initials--blue">
+                                    @item.DisplayName.Substring(0, 2).ToUpper()
+                                </div>
+
+                                <img class="ms-Persona-image" src="images/GetGroupImage?groupid=@item.Id">
+                                @* we have to fetch these client-side async *@
+                            </div>
+                            <div class="ms-Persona-details">
+                                <div class="ms-Persona-primaryText" title="@item.DisplayName">
+                                    @item.DisplayName
+                                </div><div class="ms-Persona-secondaryText" title="@item.Description">@item.Description</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            } @* foreach groups *@
+        </div>
+    </div>
+</div>

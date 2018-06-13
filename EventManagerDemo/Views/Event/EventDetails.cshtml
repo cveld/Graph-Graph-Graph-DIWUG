@@ -1,0 +1,61 @@
+﻿@using EventManagerDemo.Models
+
+@{
+    ViewBag.Title = "Event Details";
+    Layout = "~/Views/Shared/OfficeUIFabricLayout.cshtml";
+}
+
+@model EventDetailsViewModel
+
+<div class="event-page index">
+    <h2>Details of the Event</h2>
+    <p>@ViewBag.Message</p>
+
+    @using (Html.BeginForm("EventDetails", "Event", FormMethod.Get))
+    {
+     
+    }
+
+    @if (Model.Event!=null)
+    {
+        <table>
+            <tr><th align="left">Name</th><th align="left">Description</th><th align="left">Date</th><th align="left">Type</th><th align="left">Actions</th></tr>
+                <tr>
+                    <td>@Model.Event.Title</td>
+                    <td>@Model.Event.Description</td>
+                    <td>@Model.Event.EventDate</td>
+                    <td>Conference</td>
+                    <td>
+                        @Html.ActionLink("Open", "NavigateTo", "Event", new { Id = Model.Event.Id }, new { target = "_blank" })
+                        @Html.ActionLink("FindMeetingTime", "FindMeetingTime", "Event", new { Id = Model.Event.Id }, new { target = "_blank" })
+                    </td>
+                </tr>
+        </table>
+    }
+    else
+    {
+        <p>No event found matching the specified filter.</p>
+    }
+
+    <p></p>
+    <p></p>
+    <p></p>
+
+    <table id="eventsTable" class="table table-striped table-bordered">
+        <tr>
+            <th align="left">Subject</th>
+            <th align="left">Start</th>
+            <th align="left">End</th>
+        </tr>
+        @foreach (var item in Model.GroupCalendarEvents)
+        {
+            <tr>
+                <td>@Html.DisplayFor(GroupCalanderEvent => item.Subject)</td>
+                <td>@Html.DisplayFor(GroupCalanderEvent => item.Start.DateTime)</td>
+                <td>@Html.DisplayFor(GroupCalanderEvent => item.End.DateTime)</td>
+            </tr>
+        }
+    </table>
+    <p>Budget status: € @Model.BudgetStatus</p>
+</div>
+

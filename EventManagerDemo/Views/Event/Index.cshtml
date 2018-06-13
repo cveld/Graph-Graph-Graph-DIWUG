@@ -1,0 +1,88 @@
+﻿@using EventManagerDemo.Models
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/OfficeUIFabricLayout.cshtml";
+}
+
+@model EventsOverviewViewModel
+<div class="ms-Grid">
+    <div class="ms-Grid-row">
+        <div class="ms-Grid-col">
+            <div class="event-page index">
+                <h2>Overview of all event groups</h2>
+                <p>@ViewBag.Message</p>
+
+                @using (Html.BeginForm("Index", "Event", FormMethod.Get))
+                {
+                    <p>
+                        <h3>Filter by event type</h3>
+                        @Html.LabelFor(m => m.SelectedEventTypeId)
+                        @Html.DropDownListFor(m => m.SelectedEventTypeId, Model.EventTypes)
+                        <input type="submit" value="Filter" class="btn btn-default" />
+                    </p>
+
+                }
+
+                @if (Model.ManagedEvents.Count() > 0)
+                {
+                    <table>
+                        <tr><th align="left">Name</th><th align="left">Date</th><th align="left">Type</th><th align="left">Actions</th></tr>
+                        @foreach (var item in Model.ManagedEvents)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.EventDate</td>
+                                <td>@item.EventType</td>
+                                <td>
+                                    @*@Html.ActionLink("Open", "NavigateTo", "Event", new { Id = item.Id }, new { target = "_blank" })   *@
+                                    @Html.ActionLink("Open", "EventDetails", new { EventId = item.Id })
+
+                                    @Html.ActionLink("Upload Excel", "UploadExcelsheet", "Test", new { Id = item.Id }, null)
+
+
+                                    @*@Html.ActionLink("Apply", "ApplySchemaExtensions", "Event", new { Id = item.Id }, null)*@
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    <p>@Model.ManagedEvents.Count() events matching the specified filter.</p>
+                }
+                else
+                {
+                    <p>No events found matching the specified filter.</p>
+                }
+
+                <p>@Html.ActionLink("Add new event", "Create")</p>
+
+            </div>
+
+            <div class="ms-Grid">
+                <div class="ms-Grid-row">
+                    @foreach (var item in Model.ManagedEvents)
+                    {
+                        <div class="ms-Grid-col">
+                            <a href="@item.ConversationsUrl">
+                                <div class="ms-Persona">
+                                    <div class="ms-Persona-imageArea">
+                                        <div class="ms-Persona-initials ms-Persona-initials--blue">
+                                            @item.Title.Substring(0, 2).ToUpper()
+                                        </div>
+
+                                        <img class="ms-Persona-image" src="images/GetGroupImage?groupid=@item.Id">
+                                        @* We need to retrieve these client-side async *@
+                                    </div>
+                                    <div class="ms-Persona-details">
+                                        <div class="ms-Persona-primaryText" title="@item.Title">@item.Title</div>
+                                        <div class="ms-Persona-secondaryText" title="@item.Description">@item.Description</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                    } @* groups *@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

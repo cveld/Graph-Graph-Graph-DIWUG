@@ -1,0 +1,23 @@
+﻿@using EventManagerDemo.Models
+@using Microsoft.Graph
+@model IEnumerable<SchemaExtension>
+@{
+    ViewBag.Title = "SchemaExtensions";
+    Layout = "~/Views/Shared/OfficeUIFabricLayout.cshtml";
+}
+
+<div class="ms-Grid">
+    <div class="ms-Grid-row">
+        <div class="ms-Grid-col">
+
+            <h2>SchemaExtensions</h2>
+            <table>
+                <tr><th align="left">ID</th><th align="left">Status</th></tr>
+                @foreach (var item in Model)
+                {
+                    <tr><td>@item.Id</td><td>@item.Status</td></tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

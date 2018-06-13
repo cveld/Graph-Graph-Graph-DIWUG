@@ -1,0 +1,27 @@
+﻿@using EventManagerDemo.Models
+@using System.Security.Claims
+@model EventsOverviewViewModel
+@{
+    ViewBag.Title = "Open extensions";
+    Layout = "~/Views/Shared/OfficeUIFabricLayout.cshtml";
+}
+
+<div class="event-page openextensions">
+    <p>@ViewBag.Message</p>
+
+    <table><tr><th>ID</th><th>MailNickname</th></tr>
+    @foreach (var item in Model.Groups)
+    {
+        <tr><td>@item.Id</td><td>@item.MailNickname</td><td>@Html.ActionLink("Apply", "ApplySchemaExtensions", "Event", new { Id = item.Id }, null)</td></tr>
+    }
+    </table>
+
+    <table>
+        <tr><th>ID</th><th>MailNickname</th></tr>
+        @foreach (var item in Model.SchemaGroups)
+        {
+            <tr><td>@item.Id</td><td>@item.MailNickname</td><td>@Html.ActionLink("Apply", "ApplySchemaExtensions", "Event", new { Id = item.Id }, null)</td></tr>
+        }
+    </table>
+
+</div>

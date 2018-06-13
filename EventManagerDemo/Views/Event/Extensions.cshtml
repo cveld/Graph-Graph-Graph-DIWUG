@@ -1,0 +1,12 @@
+﻿@using EventManagerDemo.Models
+@using System.Security.Claims
+@model IEnumerable<Claim>
+@{
+    ViewBag.Title = "Event created";
+    Layout = "~/Views/Shared/OfficeUIFabricLayout.cshtml";
+}
+
+<div class="event-page created">
+    <p>Event created.</p>
+    <p>@ViewBag.Message</p>
+</div>

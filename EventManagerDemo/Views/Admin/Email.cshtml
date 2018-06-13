@@ -1,0 +1,15 @@
+﻿@using EventManagerDemo.Models
+@using System.Security.Claims
+@model IEnumerable<Claim>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/OfficeUIFabricLayout.cshtml";
+}
+<div class="ms-Grid">
+    <div class="ms-Grid-row">
+        <div class="ms-Grid-col">
+
+            E-mail: @ViewBag.Email
+        </div>
+    </div>
+</div>

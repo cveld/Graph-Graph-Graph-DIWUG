@@ -1,0 +1,39 @@
+﻿@using EventManagerDemo.Models
+
+@{
+    ViewBag.Title = "Find Meeting Time";
+    Layout = "~/Views/Shared/OfficeUIFabricLayout.cshtml";
+}
+
+@model FindMeetingTimeViewModel
+
+<div class="event-page index">
+    <h2>Details of the Event</h2>
+    <p>@ViewBag.Message</p>
+
+    @using (Html.BeginForm("FindMeetingTime", "Event", FormMethod.Get))
+    {
+
+    }
+
+    <table id="eventsTable" class="table table-striped table-bordered">
+        <tr>
+            <th align="left">Start</th>
+            <th align="left">End</th>
+            <th align="left">Location</th>
+            <th align="left">Confidence</th>
+            <th align="left">Suggestion</th>
+        </tr>
+        @foreach (var item in Model.MeetingTimeCandidates)
+        {
+            <tr>
+                <td>@Html.DisplayFor(GroupCalanderEvent => item.MeetingTimeSlotStart)</td>
+                <td>@Html.DisplayFor(GroupCalanderEvent => item.MeetingTimeSlotEnd)</td>
+                <td>@Html.DisplayFor(GroupCalanderEvent => item.LocationDisplayName)</td>
+                <td>@Html.DisplayFor(GroupCalanderEvent => item.Confidence)</td>
+                <td>@Html.DisplayFor(GroupCalanderEvent => item.SuggestionHint)</td>
+            </tr>
+        }
+    </table>
+</div>
+

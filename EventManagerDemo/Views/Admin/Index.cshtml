@@ -1,0 +1,48 @@
+﻿@using EventManagerDemo.Models
+@model SchemaExtensionsManagementViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/OfficeUIFabricLayout.cshtml";
+}
+
+<div class="test-page index">
+    Schema Extension Management:
+@using (Html.BeginForm("Index", "Admin", FormMethod.Get))
+{
+    <p>
+        <h3>Select Schema Extension to manage</h3>
+        @Html.LabelFor(m => m.SelectedSchemaExtension)
+        @Html.DropDownListFor(m => m.SelectedSchemaExtension, Model.SchemaExtensionTypes, "Select schema extension:")
+        <input type="submit" value="Select" class="btn btn-default" />
+    </p>
+
+}
+    <ul>    
+        @if (String.IsNullOrEmpty(Model.SelectedSchemaExtension)) {
+            <li><i>Select a schema extension first to manage it</i></li>
+        }
+        else { 
+        <li>@Html.ActionLink($"Check whether schema extension {Model.SelectedSchemaExtension} is present", "IsSchemaExtensionPresent", "Admin", new { SchemaExtension = Model.SelectedSchemaExtension }, htmlAttributes: null)</li>
+        <li>@Html.ActionLink($"Add schema extension {Model.SelectedSchemaExtension}", "AddSchemaExtension", "Admin", new { SchemaExtension = Model.SelectedSchemaExtension }, htmlAttributes: null)</li>
+        <li>
+            Set schema extension @Model.SelectedSchemaExtension status to 
+            @Html.ActionLink($"InDevelopment", "SetStatus", "Admin", new { SchemaExtension = Model.SelectedSchemaExtension, status = EventManagerDemo.Models.JsonHelpers.SchemaExtensionStatusTypes.InDevelopment }, htmlAttributes: null)
+
+            @Html.ActionLink($"Available", "SetStatus", "Admin", new { SchemaExtension = Model.SelectedSchemaExtension, status = EventManagerDemo.Models.JsonHelpers.SchemaExtensionStatusTypes.Available }, htmlAttributes: null)
+
+            @Html.ActionLink($"Deprecated", "SetStatus", "Admin", new { SchemaExtension = Model.SelectedSchemaExtension, status = EventManagerDemo.Models.JsonHelpers.SchemaExtensionStatusTypes.Deprecated }, htmlAttributes: null)
+
+        
+        </li>
+        <li>@Html.ActionLink($"Update schema extension {Model.SelectedSchemaExtension}", "UpdateSchemaExtension", "Admin", new { SchemaExtension = Model.SelectedSchemaExtension }, htmlAttributes: null)</li>
+        <li>@Html.ActionLink($"Delete schema extension {Model.SelectedSchemaExtension}", "DeleteSchemaExtension", "Admin", new { SchemaExtension = Model.SelectedSchemaExtension }, htmlAttributes: null)</li>
+        }
+        <li>@Html.ActionLink("List all available schema extensions", "SchemaExtensions", "Admin")</li>
+    </ul>
+
+    Test pages:
+    <ul>
+        <li>@Html.ActionLink("Get my email", "Email", "Admin")</li>
+    </ul>
+</div>
